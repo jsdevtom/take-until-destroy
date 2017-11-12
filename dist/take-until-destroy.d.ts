@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 /**
- * An augmentation which takes an Angular class instance. When the component is destroyed, the stream will be
+ * An RxJs operator which takes an Angular class instance as a parameter. When the component is destroyed, the stream will be
  * unsubscribed from.
  *
  * <b>Important:</b> Make sure you have either {@link Destroyable @Destroyable} decorating your class like so:
@@ -26,7 +26,7 @@ import { Observable } from 'rxjs';
  * <pre><code>
  * ngOnInit() {
  *   this.randomObservable
- *     .takeUntilDestroy(this)
+ *     .pipe(takeUntilDestroy(this))
  *     .subscribe((val) => console.log(val))
  * }
  * </code></pre>

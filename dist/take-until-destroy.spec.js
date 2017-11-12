@@ -11,7 +11,7 @@ const of_1 = require("rxjs/observable/of");
 const interval_1 = require("rxjs/observable/interval");
 const destroyable_decorator_1 = require("./destroyable.decorator");
 const error_messages_1 = require("./error-messages");
-const take_until_destroy_1 = require("./take-until-destroy");
+const take_until_destroy_1 = require("take-until-destroy");
 let testClassWithDec;
 let testClassWithoutDec;
 let TestClassWithDec = class TestClassWithDec {
