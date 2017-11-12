@@ -1,12 +1,10 @@
 import test, { TestContext } from 'ava'
-import { Observable } from 'rxjs/Observable'
+import { Subscription } from 'rxjs'
+import { of } from 'rxjs/observable/of'
+import { interval } from 'rxjs/observable/interval'
 import { Destroyable } from './destroyable.decorator'
 import { ErrorMessages } from './error-messages'
-import 'rxjs/add/observable/of'
-import 'rxjs/add/operator/filter'
-import 'rxjs/add/operator/map'
-import './take-until-destroy'
-import { Subscription } from 'rxjs/Subscription'
+import { takeUntilDestroy } from './take-until-destroy'
 
 let testClassWithDec: TestClassWithDec
 let testClassWithoutDec: TestClassWithoutDec
@@ -14,13 +12,14 @@ let testClassWithoutDec: TestClassWithoutDec
 @Destroyable
 class TestClassWithDec {
   bob = 'bob'
-  stream$ = Observable.interval(1000)
-      .takeUntilDestroy(this)
+  stream$ = interval(1000)
 
   subscription: Subscription
 
   ngOnInit () {
-    this.subscription = this.stream$.subscribe()
+    this.subscription = this.stream$.pipe(
+        takeUntilDestroy(this)
+    ).subscribe()
   }
 
   ngOnDestroy () {
@@ -32,8 +31,9 @@ class TestClassWithoutDec {
   bob = 'bob'
 
   ngOnInit () {
-    Observable.of(1, 2, 3, 4, 5, 6)
-            .takeUntilDestroy(this)
+    of(1, 2, 3, 4, 5, 6).pipe(
+        takeUntilDestroy(this)
+    ).subscribe()
   }
 }
 

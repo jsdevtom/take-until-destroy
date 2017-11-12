@@ -7,23 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ava_1 = require("ava");
-const Observable_1 = require("rxjs/Observable");
+const of_1 = require("rxjs/observable/of");
+const interval_1 = require("rxjs/observable/interval");
 const destroyable_decorator_1 = require("./destroyable.decorator");
 const error_messages_1 = require("./error-messages");
-require("rxjs/add/observable/of");
-require("rxjs/add/operator/filter");
-require("rxjs/add/operator/map");
-require("./take-until-destroy");
+const take_until_destroy_1 = require("./take-until-destroy");
 let testClassWithDec;
 let testClassWithoutDec;
 let TestClassWithDec = class TestClassWithDec {
     constructor() {
         this.bob = 'bob';
-        this.stream$ = Observable_1.Observable.interval(1000)
-            .takeUntilDestroy(this);
+        this.stream$ = interval_1.interval(1000);
     }
     ngOnInit() {
-        this.subscription = this.stream$.subscribe();
+        this.subscription = this.stream$.pipe(take_until_destroy_1.takeUntilDestroy(this)).subscribe();
     }
     ngOnDestroy() {
         return this.bob;
@@ -37,8 +34,7 @@ class TestClassWithoutDec {
         this.bob = 'bob';
     }
     ngOnInit() {
-        Observable_1.Observable.of(1, 2, 3, 4, 5, 6)
-            .takeUntilDestroy(this);
+        of_1.of(1, 2, 3, 4, 5, 6).pipe(take_until_destroy_1.takeUntilDestroy(this)).subscribe();
     }
 }
 ava_1.default.beforeEach(() => {

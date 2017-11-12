@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/takeUntil';
 /**
  * An augmentation which takes an Angular class instance. When the component is destroyed, the stream will be
  * unsubscribed from.
@@ -34,9 +33,4 @@ import 'rxjs/add/operator/takeUntil';
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export declare function takeUntilDestroy<T>(this: Observable<T>, target: Object): Observable<T>;
-declare module 'rxjs/Observable' {
-    interface Observable<T> {
-        takeUntilDestroy: typeof takeUntilDestroy;
-    }
-}
+export declare const takeUntilDestroy: (target: Object) => <T>(stream: Observable<T>) => Observable<T>;

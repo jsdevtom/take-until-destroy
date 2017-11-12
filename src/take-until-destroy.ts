@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import 'rxjs/add/operator/takeUntil'
+import { takeUntil } from 'rxjs/operators/takeUntil'
 import { ErrorMessages } from './error-messages'
 
 // Compose the operator:
@@ -37,7 +37,7 @@ import { ErrorMessages } from './error-messages'
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export function takeUntilDestroy<T> (this: Observable<T>, target: Object): Observable<T> {
+export const takeUntilDestroy = (target: Object) => <T>(stream: Observable<T>) => {
   const targetPrototype = Object.getPrototypeOf(target)
   const originalDestroy = targetPrototype.ngOnDestroy
 
@@ -54,16 +54,5 @@ export function takeUntilDestroy<T> (this: Observable<T>, target: Object): Obser
     destroy$.complete()
   }
 
-  return this.takeUntil(destroy$)
-}
-
-// Add the operator to the Observable prototype:
-Observable.prototype.takeUntilDestroy = takeUntilDestroy
-
-// Extend the TypeScript interface for Observable to include the operator:
-declare module 'rxjs/Observable' {
-
-    interface Observable<T> {
-      takeUntilDestroy: typeof takeUntilDestroy
-    }
+  return stream.pipe(takeUntil(destroy$))
 }

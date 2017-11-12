@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
-require("rxjs/add/operator/takeUntil");
+const takeUntil_1 = require("rxjs/operators/takeUntil");
 const error_messages_1 = require("./error-messages");
 // Compose the operator:
 /**
@@ -38,7 +38,7 @@ const error_messages_1 = require("./error-messages");
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-function takeUntilDestroy(target) {
+exports.takeUntilDestroy = (target) => (stream) => {
     const targetPrototype = Object.getPrototypeOf(target);
     const originalDestroy = targetPrototype.ngOnDestroy;
     if (!(originalDestroy && typeof originalDestroy === 'function')) {
@@ -50,9 +50,6 @@ function takeUntilDestroy(target) {
         destroy$.next();
         destroy$.complete();
     };
-    return this.takeUntil(destroy$);
-}
-exports.takeUntilDestroy = takeUntilDestroy;
-// Add the operator to the Observable prototype:
-rxjs_1.Observable.prototype.takeUntilDestroy = takeUntilDestroy;
+    return stream.pipe(takeUntil_1.takeUntil(destroy$));
+};
 //# sourceMappingURL=take-until-destroy.js.map
