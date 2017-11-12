@@ -2,7 +2,7 @@
   "name": "take-until-destroy",
   "version": "1.0.0",
   "description": "A simple way to unsubscribe from an RxJs stream in Angular (2+) when the component is destroyed",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "tsc && nyc --reporter=html --reporter=text ava",
     "test:adebug": "npm run build && inspect node_modules/ava/profile.js",
