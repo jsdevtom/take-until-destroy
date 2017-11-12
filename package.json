@@ -3,6 +3,10 @@
   "version": "1.0.5",
   "description": "A simple way to unsubscribe from an RxJs stream in Angular (2+) when the component is destroyed",
   "main": "index.js",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jsdevtom/take-until-destroy.git"
+  },
   "scripts": {
     "test": "tsc && nyc --reporter=html --reporter=text ava",
     "test:debug": "npm run build && inspect node_modules/ava/profile.js",
