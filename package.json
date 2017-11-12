@@ -1,0 +1,39 @@
+{
+  "name": "take-until-destroy",
+  "version": "1.0.0",
+  "description": "A simple way to unsubscribe from an RxJs stream in Angular (2+) when the component is destroyed",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc && nyc --reporter=html --reporter=text ava",
+    "test:adebug": "npm run build && inspect node_modules/ava/profile.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
+    "lint": "tslint -p tslint.json"
+  },
+  "keywords": [
+    "angular",
+    "takeUntilDestroy",
+    "rxjs",
+    "unsubscribe"
+  ],
+  "author": "jsdevtom",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^5.5.2"
+  },
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "coveralls": "^3.0.0",
+    "inspect-process": "^0.5.0",
+    "nyc": "^11.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.1"
+  },
+  "ava": {
+    "files": [
+      "dist/*.spec.js",
+      "!dist/*.spec.d.js"
+    ]
+  }
+}
