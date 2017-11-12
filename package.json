@@ -8,7 +8,9 @@
     "test:adebug": "npm run build && inspect node_modules/ava/profile.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
-    "lint": "tslint -p tslint.json"
+    "lint": "tslint -p tslint.json",
+    "copy:package": "cp -rf package.json dist",
+    "publish": "npm run build && npm run copy:package && cd dist && npm publish && cd .. && rm -rf ./dist/package.json"
   },
   "keywords": [
     "angular",
