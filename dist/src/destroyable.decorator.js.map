@@ -1,0 +1,1 @@
+{"version":3,"file":"destroyable.decorator.js","sourceRoot":"","sources":["../../src/destroyable.decorator.ts"],"names":[],"mappings":";;AAAA;;;;;;;;;;;;;;;GAeG;AACU,QAAA,WAAW,GAAmB,qBAAsB,MAAgB;IAC/E,EAAE,CAAC,CAAC,CAAC,MAAM,CAAC,SAAS,CAAC,WAAW,CAAC,CAAC,CAAC;QAClC,MAAM,CAAC,SAAS,CAAC,WAAW,GAAG;YAC7B,EAAE;QACJ,CAAC,CAAA;IACH,CAAC;AACH,CAAC,CAAA"}
