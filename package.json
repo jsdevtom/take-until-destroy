@@ -15,7 +15,7 @@
     "lint": "tslint -p tslint.json",
     "copy:package": "cp -rf package.json dist",
     "copy:index": "cp -rf dist/index.js dist/index.d.ts dist/index.js.map ./",
-    "publish": "npm run build && npm run copy:index && npm run del:index && npm publish",
+    "publish": "npm run build && npm publish",
     "del:index": "rm -rf dist/index.js dist/index.d.ts dist/index.js.map",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
