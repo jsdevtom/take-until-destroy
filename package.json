@@ -11,7 +11,7 @@
     "test": "nyc --reporter=html --reporter=text ava",
     "test:debug": "npm run build && inspect node_modules/ava/profile.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
+    "build": "rm -rf ./dist ./index.d.ts ./index.js ./index.js.map && tsc -p ./tsconfig.json && tsc index.ts --skipLibCheck true",
     "lint": "tslint -p tslint.json",
     "copy:package": "cp -rf package.json dist",
     "copy:index": "cp -rf dist/index.js dist/index.d.ts dist/index.js.map ./",
