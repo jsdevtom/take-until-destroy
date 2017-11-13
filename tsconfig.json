@@ -3,6 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "declaration": true,
+    "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
     "experimentalDecorators": true,
@@ -11,7 +12,8 @@
     "sourceMap": true
   },
   "filesGlob": [
-    "./**/*.ts",
+    "./src/*.ts",
     "!./node_modules/**/*.ts"
-  ]
+  ],
+  "exclude": ["./index.ts"]
 }
