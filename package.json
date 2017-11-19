@@ -1,6 +1,6 @@
 {
   "name": "take-until-destroy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple way to unsubscribe from an RxJs stream in Angular (2+) when the component is destroyed",
   "main": "index.js",
   "repository": {
