@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
 const takeUntil_1 = require("rxjs/operators/takeUntil");
 const error_messages_1 = require("./error-messages");
-// Compose the operator:
+const instanceDestroy$Map = new WeakMap();
 /**
  * An RxJs operator which takes an Angular class instance as a parameter. When the component is destroyed, the stream will be
  * unsubscribed from.
@@ -44,12 +44,17 @@ exports.takeUntilDestroy = (target) => (stream) => {
     if (!(originalDestroy && typeof originalDestroy === 'function')) {
         throw new Error(error_messages_1.ErrorMessages.NO_NGONDESTROY);
     }
-    const destroy$ = new rxjs_1.Subject();
+    if (instanceDestroy$Map.has(target)) {
+        const destroy$FoundInMap = instanceDestroy$Map.get(target);
+        return stream.pipe(takeUntil_1.takeUntil(destroy$FoundInMap));
+    }
+    const newDestroy$ = new rxjs_1.Subject();
+    instanceDestroy$Map.set(target, newDestroy$);
     targetPrototype.ngOnDestroy = function () {
         originalDestroy.apply(this, arguments);
-        destroy$.next();
-        destroy$.complete();
+        newDestroy$.next();
+        newDestroy$.complete();
     };
-    return stream.pipe(takeUntil_1.takeUntil(destroy$));
+    return stream.pipe(takeUntil_1.takeUntil(newDestroy$));
 };
 //# sourceMappingURL=take-until-destroy.js.map

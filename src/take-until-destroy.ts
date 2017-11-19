@@ -1,8 +1,15 @@
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators/takeUntil'
+
 import { ErrorMessages } from './error-messages'
 
-// Compose the operator:
+/**
+ * A Map where the component instance is stored as the key
+ * and the destroy$ subject as the value
+ * @type {WeakMap<Object, Subject>}
+ */
+const instanceDestroy$Map = new WeakMap()
+
 /**
  * An RxJs operator which takes an Angular class instance as a parameter. When the component is destroyed, the stream will be
  * unsubscribed from.
@@ -45,14 +52,21 @@ export const takeUntilDestroy = (target: Object) => <T>(stream: Observable<T>) =
     throw new Error(ErrorMessages.NO_NGONDESTROY)
   }
 
-  const destroy$ = new Subject<null>()
+  if (instanceDestroy$Map.has(target)) {
+    const destroy$FoundInMap = instanceDestroy$Map.get(target)
+    return stream.pipe(takeUntil(destroy$FoundInMap))
+  }
+
+  const newDestroy$ = new Subject<null>()
+
+  instanceDestroy$Map.set(target, newDestroy$)
 
   targetPrototype.ngOnDestroy = function () {
     originalDestroy.apply(this, arguments)
 
-    destroy$.next()
-    destroy$.complete()
+    newDestroy$.next()
+    newDestroy$.complete()
   }
 
-  return stream.pipe(takeUntil(destroy$))
+  return stream.pipe(takeUntil(newDestroy$))
 }
