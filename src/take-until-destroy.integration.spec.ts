@@ -2,6 +2,7 @@ import { Component, Directive, OnDestroy, OnInit } from '@angular/core'
 import { interval } from 'rxjs/observable/interval'
 import { Subscription } from 'rxjs/Subscription'
 import { takeUntilDestroy } from './take-until-destroy'
+import test, { AssertContext } from 'ava'
 
 interface AngularTestDeclaration extends OnInit, OnDestroy {
   subscription: Subscription
@@ -66,51 +67,46 @@ class TestComponentWithTUD implements AngularTestDeclaration {
   }
 }
 
-function testUnSubscription (declaration: AngularTestDeclaration) {
+function testUnSubscription (declaration: AngularTestDeclaration, t: AssertContext) {
   declaration.ngOnInit()
-  expect(declaration.subscription.closed).toBeFalsy()
+  t.false(declaration.subscription.closed)
 
   declaration.ngOnDestroy()
-  expect(declaration.subscription.closed).toBeTruthy()
+  t.true(declaration.subscription.closed)
 }
 
-function shouldNotReplaceNgOnDestroyMoreThanOnce (declaration: AngularTestDeclaration) {
+function shouldNotReplaceNgOnDestroyMoreThanOnce (declaration: AngularTestDeclaration, t: AssertContext) {
   const originalNgOnDestroy = declaration.ngOnDestroy
 
   declaration.ngOnInit()
 
   const secondNgOnDestroy = declaration.ngOnDestroy
 
-  expect(originalNgOnDestroy).not.toBe(secondNgOnDestroy)
+  t.not(originalNgOnDestroy, secondNgOnDestroy)
 
   declaration.initSecondSub()
 
   const thirdNgOnDestroy = declaration.ngOnDestroy
 
-  expect(secondNgOnDestroy).toBe(thirdNgOnDestroy)
+  t.is(secondNgOnDestroy, thirdNgOnDestroy)
 }
 
-describe('takeUntilDestroy', () => {
+let comp: TestComponentWithTUD
+let directive: TestDirective
 
-  let comp: TestComponentWithTUD
-  let directive: TestDirective
+test.beforeEach(() => {
+  comp = new TestComponentWithTUD()
+  directive = new TestDirective()
+})
 
-  beforeEach(() => {
-    comp = new TestComponentWithTUD()
-    directive = new TestDirective()
-  })
+test('sanity', t => t.is(true, true))
 
-  describe('sanity', () => {
-    it('true is true', () => expect(true).toBe(true))
-  })
+test(`the stream should be unsubscribed from after ngOnDestroy is called`, t => {
+  testUnSubscription(comp, t)
+  testUnSubscription(directive, t)
+})
 
-  it(`the stream should be unsubscribed from after ngOnDestroy is called`, () => {
-    testUnSubscription(comp)
-    testUnSubscription(directive)
-  })
-
-  it(`should not replace the ngOnDestroy method more than once`, () => {
-    shouldNotReplaceNgOnDestroyMoreThanOnce(comp)
-    shouldNotReplaceNgOnDestroyMoreThanOnce(directive)
-  })
+test(`should not replace the ngOnDestroy method more than once`, t => {
+  shouldNotReplaceNgOnDestroyMoreThanOnce(comp, t)
+  shouldNotReplaceNgOnDestroyMoreThanOnce(directive, t)
 })

@@ -33,4 +33,4 @@ import { Observable } from 'rxjs';
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export declare const takeUntilDestroy: (target: Object) => <T>(stream: Observable<T>) => Observable<T>;
+export declare const takeUntilDestroy: (target: any) => <T>(stream: Observable<T>) => Observable<T>;

@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
 const takeUntil_1 = require("rxjs/operators/takeUntil");
 const error_messages_1 = require("./error-messages");
+/**
+ * A Map where the component instance is stored as the key
+ * and the destroy$ subject as the value
+ * @type {WeakMap<Object, Subject>}
+ */
 const instanceDestroy$Map = new WeakMap();
 /**
  * An RxJs operator which takes an Angular class instance as a parameter. When the component is destroyed, the stream will be
@@ -39,8 +44,7 @@ const instanceDestroy$Map = new WeakMap();
  * @returns {Observable<T>}
  */
 exports.takeUntilDestroy = (target) => (stream) => {
-    const targetPrototype = Object.getPrototypeOf(target);
-    const originalDestroy = targetPrototype.ngOnDestroy;
+    const originalDestroy = target.ngOnDestroy;
     if (!(originalDestroy && typeof originalDestroy === 'function')) {
         throw new Error(error_messages_1.ErrorMessages.NO_NGONDESTROY);
     }
@@ -50,7 +54,7 @@ exports.takeUntilDestroy = (target) => (stream) => {
     }
     const newDestroy$ = new rxjs_1.Subject();
     instanceDestroy$Map.set(target, newDestroy$);
-    targetPrototype.ngOnDestroy = function () {
+    target.ngOnDestroy = function () {
         originalDestroy.apply(this, arguments);
         newDestroy$.next();
         newDestroy$.complete();
