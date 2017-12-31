@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const rxjs_1 = require("rxjs");
+const Subject_1 = require("rxjs/Subject");
 const takeUntil_1 = require("rxjs/operators/takeUntil");
 const error_messages_1 = require("./error-messages");
 /**
@@ -52,7 +52,7 @@ exports.takeUntilDestroy = (target) => (stream) => {
         const destroy$FoundInMap = instanceDestroy$Map.get(target);
         return stream.pipe(takeUntil_1.takeUntil(destroy$FoundInMap));
     }
-    const newDestroy$ = new rxjs_1.Subject();
+    const newDestroy$ = new Subject_1.Subject();
     instanceDestroy$Map.set(target, newDestroy$);
     target.ngOnDestroy = function () {
         originalDestroy.apply(this, arguments);

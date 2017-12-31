@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs/Observable";
 /**
  * An RxJs operator which takes an Angular class instance as a parameter. When the component is destroyed, the stream will be
  * unsubscribed from.
