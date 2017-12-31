@@ -12,15 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * })
  * export class ExampleComponent {}
  * </code></pre>
- *
+ * @type ClassDecorator
  * @alias src:Destroyable
  * @param {Object} target The angular component to be listened to.
  */
-exports.Destroyable = function Destroyable(target) {
+function Destroyable(target) {
     if (!target.prototype.ngOnDestroy) {
         target.prototype.ngOnDestroy = function () {
             //
         };
     }
-};
+}
+exports.Destroyable = Destroyable;
 //# sourceMappingURL=destroyable.decorator.js.map

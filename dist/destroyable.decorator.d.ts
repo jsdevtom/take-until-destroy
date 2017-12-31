@@ -10,8 +10,9 @@
  * })
  * export class ExampleComponent {}
  * </code></pre>
- *
+ * @type ClassDecorator
  * @alias src:Destroyable
  * @param {Object} target The angular component to be listened to.
  */
-export declare const Destroyable: ClassDecorator;
+declare function Destroyable(target: Function): void;
+export { Destroyable };
