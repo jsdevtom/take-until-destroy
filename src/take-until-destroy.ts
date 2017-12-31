@@ -44,9 +44,8 @@ const instanceDestroy$Map = new WeakMap()
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export const takeUntilDestroy = (target: Object) => <T>(stream: Observable<T>) => {
-  const targetPrototype = Object.getPrototypeOf(target)
-  const originalDestroy = targetPrototype.ngOnDestroy
+export const takeUntilDestroy = (target: any) => <T>(stream: Observable<T>) => {
+  const originalDestroy = target.ngOnDestroy
 
   if (!(originalDestroy && typeof originalDestroy === 'function')) {
     throw new Error(ErrorMessages.NO_NGONDESTROY)
@@ -61,7 +60,7 @@ export const takeUntilDestroy = (target: Object) => <T>(stream: Observable<T>) =
 
   instanceDestroy$Map.set(target, newDestroy$)
 
-  targetPrototype.ngOnDestroy = function () {
+  target.ngOnDestroy = function () {
     originalDestroy.apply(this, arguments)
 
     newDestroy$.next()
