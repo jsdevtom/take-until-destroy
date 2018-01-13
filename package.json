@@ -12,7 +12,7 @@
     "url": "http://github.com/jsdevtom/take-until-destroy/issues"
   },
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text ava",
+    "test": "tsc -p ./tsconfig.json && nyc --reporter=html --reporter=text ava",
     "test:debug": "npm run build && inspect node_modules/ava/profile.js",
     "test:integration": "ng test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
