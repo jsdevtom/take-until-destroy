@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/jsdevtom/take-until-destroy.git"
   },
+  "bugs": {
+    "url": "http://github.com/jsdevtom/take-until-destroy/issues"
+  },
   "scripts": {
     "test": "nyc --reporter=html --reporter=text ava",
     "test:debug": "npm run build && inspect node_modules/ava/profile.js",
@@ -78,5 +81,18 @@
       "dist/*.spec.js",
       "!dist/*.spec.d.js"
     ]
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/error-messages.js",
+    "dist/error-messages.d.ts",
+    "dist/take-until-destroy.js",
+    "dist/take-until-destroy.d.ts",
+    "dist/destroyable.decorator.js",
+    "dist/destroyable.decorator.d.ts"
+  ],
+  "publishConfig": {
+    "tag": "next"
   }
 }
