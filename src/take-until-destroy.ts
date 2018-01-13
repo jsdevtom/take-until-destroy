@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable'
 import { takeUntil } from 'rxjs/operators/takeUntil'
 
 import { ErrorMessages } from './error-messages'
+import { MonoTypeOperatorFunction } from 'rxjs/interfaces'
 
 /**
  * A Map where the component instance is stored as the key
@@ -45,7 +46,7 @@ const instanceDestroy$Map = new WeakMap()
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export const takeUntilDestroy = (target: any) => <T>(stream: Observable<T>) => {
+export const takeUntilDestroy = <T>(target: any): MonoTypeOperatorFunction<T> => <T>(stream: Observable<T>) => {
   const originalDestroy = target.ngOnDestroy
 
   if (!(originalDestroy && typeof originalDestroy === 'function')) {
