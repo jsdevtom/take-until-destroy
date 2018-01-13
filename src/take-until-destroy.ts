@@ -1,5 +1,5 @@
-import { Subject } from "rxjs/Subject"
-import { Observable } from "rxjs/Observable"
+import { Subject } from 'rxjs/Subject'
+import { Observable } from 'rxjs/Observable'
 import { takeUntil } from 'rxjs/operators/takeUntil'
 
 import { ErrorMessages } from './error-messages'
@@ -7,7 +7,7 @@ import { ErrorMessages } from './error-messages'
 /**
  * A Map where the component instance is stored as the key
  * and the destroy$ subject as the value
- * @type {WeakMap<Object, Subject>}
+ * @type {WeakMap<Object, Observable>}
  */
 const instanceDestroy$Map = new WeakMap()
 
@@ -53,13 +53,13 @@ export const takeUntilDestroy = (target: any) => <T>(stream: Observable<T>) => {
   }
 
   if (instanceDestroy$Map.has(target)) {
-    const destroy$FoundInMap = instanceDestroy$Map.get(target)
+    const destroy$FoundInMap: Observable<null> = instanceDestroy$Map.get(target)
     return stream.pipe(takeUntil(destroy$FoundInMap))
   }
 
   const newDestroy$ = new Subject<null>()
 
-  instanceDestroy$Map.set(target, newDestroy$)
+  instanceDestroy$Map.set(target, newDestroy$.asObservable())
 
   target.ngOnDestroy = function () {
     originalDestroy.apply(this, arguments)
@@ -68,5 +68,5 @@ export const takeUntilDestroy = (target: any) => <T>(stream: Observable<T>) => {
     newDestroy$.complete()
   }
 
-  return stream.pipe(takeUntil(newDestroy$))
+  return stream.pipe(takeUntil(newDestroy$.asObservable()))
 }
