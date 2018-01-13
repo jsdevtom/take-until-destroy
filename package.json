@@ -2,7 +2,8 @@
   "name": "take-until-destroy",
   "version": "1.2.2",
   "description": "A simple way to unsubscribe from an RxJs stream in Angular (2+) when the component is destroyed",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/jsdevtom/take-until-destroy.git"
@@ -12,7 +13,7 @@
     "test:debug": "npm run build && inspect node_modules/ava/profile.js",
     "test:integration": "ng test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "rm -rf ./dist ./index.d.ts ./index.js ./index.js.map && tsc -p ./tsconfig.json && tsc index.ts --skipLibCheck true",
+    "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
     "lint": "tslint -p ./tslint.json",
     "copy:package": "cp -rf package.json dist",
     "copy:index": "cp -rf dist/index.js dist/index.d.ts dist/index.js.map ./",
