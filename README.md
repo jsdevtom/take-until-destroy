@@ -34,7 +34,6 @@ The `@Destroyable` decorator doesn't work in production. See https://github.com/
 ```typescript
  import { Destroyable, takeUntilDestroy } from 'take-until-destroy'
  
- // If you have already implemented `OnDestroy`, you don't need the `@Destroyable` decorator.
  @Component({
    ...
  })
