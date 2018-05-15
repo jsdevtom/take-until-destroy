@@ -1,5 +1,5 @@
 # take-until-destroy
-A simple way to unsubscribe from an **RxJs** stream in **Angular (5.1+)** when the component is destroyed
+A simple way to unsubscribe from an **RxJs** stream in **Angular (6.0+)** when the component is destroyed
 
 For an overview of how this works see [this post about unsubscription in angular](https://toms.blog/auto-unsubscribing-in-angular/)
 

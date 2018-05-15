@@ -1,8 +1,7 @@
-import { Component, Directive, OnDestroy, OnInit } from '@angular/core'
-import { interval } from 'rxjs/observable/interval'
-import { Subscription } from 'rxjs/Subscription'
-import { takeUntilDestroy } from './take-until-destroy'
-import test, { AssertContext } from 'ava'
+import { Component, Directive, OnDestroy, OnInit } from '@angular/core';
+import test, { AssertContext } from 'ava';
+import { interval, Subscription } from 'rxjs';
+import { takeUntilDestroy } from './take-until-destroy';
 
 interface AngularTestDeclaration extends OnInit, OnDestroy {
   subscription: Subscription
@@ -18,8 +17,8 @@ class TestDirective implements AngularTestDeclaration {
   intervalMs = 1000
   stream$ = interval(this.intervalMs)
 
-  subscription: Subscription
-  subscription2: Subscription
+  subscription!: Subscription
+  subscription2!: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(
@@ -47,8 +46,8 @@ class TestComponentWithTUD implements AngularTestDeclaration {
   intervalMs = 1000
   stream$ = interval(this.intervalMs)
 
-  subscription: Subscription
-  subscription2: Subscription
+  subscription!: Subscription
+  subscription2!: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(
