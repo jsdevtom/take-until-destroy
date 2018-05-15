@@ -1,8 +1,10 @@
-import test, { TestContext } from 'ava';
-import { interval, of, Subscription } from 'rxjs';
-import { Destroyable } from './destroyable.decorator';
-import { ErrorMessages } from './error-messages';
-import { takeUntilDestroy } from './take-until-destroy';
+import test, { TestContext } from 'ava'
+import { Subscription } from 'rxjs'
+import { Destroyable } from './destroyable.decorator'
+import { ErrorMessages } from './error-messages'
+import { takeUntilDestroy } from './take-until-destroy'
+import { interval } from 'rxjs/observable/interval'
+import { of } from 'rxjs/observable/of'
 
 let testClassWithDec: TestClassWithDec
 let testClassWithoutDec: TestClassWithoutDec
@@ -12,7 +14,7 @@ class TestClassWithDec {
   bob = 'bob'
   stream$ = interval(1000)
 
-  subscription!: Subscription
+  subscription: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(
