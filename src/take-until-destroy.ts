@@ -1,6 +1,6 @@
-import { Observable, Subject } from 'rxjs'
+import { Subject, OperatorFunction, MonoTypeOperatorFunction } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { MonoTypeOperatorFunction } from 'rxjs/interfaces'
+import { Observable } from 'rxjs/internal/Observable'
 
 import { ErrorMessages } from './error-messages'
 
@@ -45,7 +45,7 @@ const instanceDestroy$Map = new WeakMap()
  * @param {Object} target (normally `this`)
  * @returns {Observable<T>}
  */
-export const takeUntilDestroy = <T>(target: any): MonoTypeOperatorFunction<T> => <T>(stream: Observable<T>) => {
+export const takeUntilDestroy = <T>(target: any): MonoTypeOperatorFunction<T> => <T>(stream: Observable<T>): Observable<T> => {
   const originalDestroy = target.ngOnDestroy
 
   if (!(originalDestroy && typeof originalDestroy === 'function')) {
