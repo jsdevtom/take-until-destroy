@@ -1,7 +1,6 @@
 import { Component, Directive, OnDestroy, OnInit } from '@angular/core'
 import test, { AssertContext } from 'ava'
-import { Subscription } from 'rxjs'
-import { interval } from 'rxjs/observable/interval'
+import { Subscription, interval } from 'rxjs'
 import { takeUntilDestroy } from './take-until-destroy'
 
 interface AngularTestDeclaration extends OnInit, OnDestroy {

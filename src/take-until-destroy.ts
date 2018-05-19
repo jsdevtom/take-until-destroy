@@ -1,4 +1,4 @@
-import { Subject, OperatorFunction, MonoTypeOperatorFunction } from 'rxjs'
+import { Subject, MonoTypeOperatorFunction } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { Observable } from 'rxjs/internal/Observable'
 

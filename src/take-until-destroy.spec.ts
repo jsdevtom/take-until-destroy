@@ -1,10 +1,8 @@
 import test, { TestContext } from 'ava'
-import { Subscription } from 'rxjs'
+import { Subscription, interval, of } from 'rxjs'
 import { Destroyable } from './destroyable.decorator'
 import { ErrorMessages } from './error-messages'
 import { takeUntilDestroy } from './take-until-destroy'
-import { interval } from 'rxjs/observable/interval'
-import { of } from 'rxjs/observable/of'
 
 let testClassWithDec: TestClassWithDec
 let testClassWithoutDec: TestClassWithoutDec
