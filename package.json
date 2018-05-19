@@ -17,7 +17,7 @@
     "test:integration": "ng test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
-    "lint": "tslint -p ./tslint.json",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json",
     "copy:package": "cp -rf package.json dist",
     "copy:index": "cp -rf dist/index.js dist/index.d.ts dist/index.js.map ./",
     "del:index": "rm -rf dist/index.js dist/index.d.ts dist/index.js.map",
