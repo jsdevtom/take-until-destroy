@@ -14,7 +14,7 @@ class TestClassWithDec {
   bob = 'bob'
   stream$ = interval(1000)
 
-  subscription: Subscription
+  subscription!: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(

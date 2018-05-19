@@ -18,8 +18,8 @@ class TestDirective implements AngularTestDeclaration {
   intervalMs = 1000
   stream$ = interval(this.intervalMs)
 
-  subscription: Subscription
-  subscription2: Subscription
+  subscription!: Subscription
+  subscription2!: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(
@@ -47,8 +47,8 @@ class TestComponentWithTUD implements AngularTestDeclaration {
   intervalMs = 1000
   stream$ = interval(this.intervalMs)
 
-  subscription: Subscription
-  subscription2: Subscription
+  subscription!: Subscription
+  subscription2!: Subscription
 
   ngOnInit () {
     this.subscription = this.stream$.pipe(
